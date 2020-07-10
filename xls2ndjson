@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+// convert first Sheet of an Excel file to ndjson
+
+const xls2json = require('convert-excel-to-json')
+const [ sourceFile ] = process.argv.slice(2)
+
+xls2json({
+  sourceFile,
+  header: { rows: 1 },
+  columnToKey: { '*': '{{columnHeader}}' }
+}).Sheet1.forEach(row => {
+  console.log(JSON.stringify(row))
+})

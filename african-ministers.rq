@@ -1,0 +1,10 @@
+SELECT ?person ?personLabel ?countryLabel {
+  ?person wdt:P39 [ wdt:P279+ wd:Q83307 ] .
+  ?person p:P39 [
+    ps:P39 [ wdt:P279+ wd:Q83307 ] ;
+    pq:P17 ?country
+  ] .
+  # TODO: or position is country-specific!
+  ?country wdt:P30 wd:Q15
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
