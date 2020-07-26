@@ -1,0 +1,12 @@
+SELECT (COUNT(DISTINCT ?position) AS ?positions) ?state ?stateLabel WITH {
+  SELECT DISTINCT ?position { ?position wdt:P279+ wd:Q83307 . }
+} AS %positions WHERE { 
+  INCLUDE %positions .
+  ?position wdt:P17 ?state .
+  ?state wdt:P30 wd:Q15 .
+         
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"
+  } 
+} GROUP BY ?state ?stateLabel
+ORDER BY DESC(?positions)

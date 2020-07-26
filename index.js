@@ -4,7 +4,8 @@ const config = {
 }
 const menu = {
   "states": { sparql: null },
-  // "about": { html: null }
+  "positions": { sparql: null },
+  "state-positions": { sparql: null }
 }
 
 $(function(){
