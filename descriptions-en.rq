@@ -1,7 +1,0 @@
-SELECT ?country ?demonym {
-  ?country wdt:P31 wd:Q3624078 ; # sovereign state
-           wdt:P30 wd:Q15 .      # in Africa
-  ?country wdt:P1549 ?demonym .  # English demonym (gender/number irrelevant)
-  FILTER (LANG(?demonym) = "en")
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-}

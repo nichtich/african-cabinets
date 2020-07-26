@@ -1,0 +1,26 @@
+#defaultView:Map
+SELECT
+  ?state ?stateLabel ?coordinate ?start ?end ?code 
+  (GROUP_CONCAT(?demonym;SEPARATOR=", ") AS ?demonmys)
+{
+
+  # States in Africa with inception >= 1847 (Liberia)
+  ?state wdt:P31/wdt:P279* wd:Q7275 ;
+         wdt:P30 wd:Q15 ;
+         wdt:P571 ?start ;
+         wdt:P625 ?coordinate .
+  FILTER (YEAR(?start) >= 1847)
+
+  OPTIONAL { ?state wdt:P298 ?code } # ISO 3 letter
+  OPTIONAL { ?state wdt:P576 ?end }
+
+  # English Demonym (if known)
+  OPTIONAL {
+    ?state wdt:P1549 ?demonym .
+    FILTER (LANG(?demonym) = "en")
+  } 
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"
+  } 
+} GROUP BY ?state ?stateLabel ?coordinate ?start ?end ?code 
