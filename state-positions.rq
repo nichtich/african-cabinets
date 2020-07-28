@@ -1,3 +1,5 @@
+# Number of state-specific position items per African state
+
 SELECT (COUNT(DISTINCT ?position) AS ?positions) ?state ?stateLabel WITH {
   SELECT DISTINCT ?position { ?position wdt:P279+ wd:Q83307 . }
 } AS %positions WHERE { 

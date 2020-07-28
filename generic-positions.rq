@@ -1,4 +1,5 @@
-# generic subclasses of minister 
+# Generic subclasses of minister (not explicitly related to a state or region)
+
 SELECT ?position ?positionLabel ?positionDescription {
   ?position wdt:P279+ wd:Q83307 .
   FILTER NOT EXISTS { ?position wdt:P17 ?country }    # not country-specific

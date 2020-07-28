@@ -1,3 +1,5 @@
+# Position items for specific African states
+
 SELECT ?position ?positionLabel ?state ?stateLabel WITH {
   SELECT DISTINCT ?position { ?position wdt:P279+ wd:Q83307 . }
 } AS %positions WHERE { 

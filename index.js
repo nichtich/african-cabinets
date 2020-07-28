@@ -5,7 +5,9 @@ const config = {
 const menu = {
   "states": { sparql: null },
   "positions": { sparql: null },
-  "state-positions": { sparql: null }
+  "state-positions": { sparql: null },
+  "generic-positions": { sparql: null },
+  "about": { html: null }
 }
 
 $(function(){
@@ -20,7 +22,7 @@ $(function(){
 
   var selectedMenuItem = window.location.hash.substr(1)
   if (!(selectedMenuItem in menu)) {
-    selectedMenuItem = "table"
+    selectedMenuItem = "about" // default
   }
 
   function selectMenu(name) {
@@ -30,23 +32,30 @@ $(function(){
     $("#menu li").removeClass("active")
     $("#"+name).addClass("active")
 
-    if (item.html) {
-      $("#description").show().html(item.html)
-      $("#html").attr("href", githubBase + name + ".html").show()
-    } else {
-      $("#description").hide()
-      $("#html").hide()
-    }
-
     $("#iframes iframe").hide()
     $("#sparql").hide()
     if (item.sparql) { 
+      if (!item.html) {
+          const comment = item.sparql.match(/(^# .+\n)+/m)
+          if (comment) {
+              item.html = comment[0].split("# ").join(" ")
+          }
+      }
+      // TODO: show loading indicator and remove on load of iframe
       const query = encodeURIComponent(item.sparql)
       var iframe = $("#iframe-"+name).show()
       if (!iframe.attr("src")) {
         iframe.attr("src", queryBase + "embed.html#" + query)
       }
       $("#sparql").attr("href", queryBase + "#" + query).show()
+    }
+
+    if (item.html) {
+      $("#description").show().html(item.html)
+      $("#html").attr("href", githubBase + name + ".html").show()
+    } else {
+      $("#description").hide()
+      $("#html").hide()
     }
 
     window.location.hash = name
