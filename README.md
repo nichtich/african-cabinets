@@ -44,9 +44,11 @@ To convert all ministers from a country to Wikidata items, call `bin/ministers` 
 
     ./bin/ministers Angola
 
+The current version only emits ministers with matching generic position item on Wikidata.
+
 Next step to upload/update items in Wikidata:
 
-...not implemented yet...
+*...not implemented yet...*
 
 ### Web application
 

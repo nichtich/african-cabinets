@@ -15,7 +15,5 @@ else
 
     jq "select(.country==\"$1\")" portfolio.ndjson | \
     jq -s "group_by(.minister)|.[]" | \
-    jq -Llib --argjson state "$STATE" 'include "towikidata"; person($state)'
-
-#    jq -Llib --slurpfile states states.ndjson 'include "towikidata"; person'
+    jq -Llib --argjson s "$STATE" --slurpfile p generic-positions.json 'include "towikidata"; person($s;$p[0])'
 fi

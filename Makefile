@@ -29,5 +29,5 @@ states.ndjson: states.rq
 positions.ndjson: positions.rq
 	@wd sparql $< | jq -c '.[]' > $@
 
-generic-positions.ndjson: generic-positions.rq
-	@wd sparql $< | jq -c '.[]' > $@
+generic-positions.json: generic-positions.rq
+	@wd sparql $< | jq -f lib/generic-positions.jq > $@
