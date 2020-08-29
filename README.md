@@ -40,7 +40,13 @@ Some statistics can be calculated for data analysis
 
     make stats
 
-...
+To convert all ministers from a country to Wikidata items, call `bin/ministers` with the country name:
+
+    ./bin/ministers Angola
+
+Next step to upload/update items in Wikidata:
+
+...not implemented yet...
 
 ### Web application
 
@@ -48,3 +54,7 @@ The web application is made available at <http://jakobvoss.de/african-cabinets/>
 
     npm run web
 
+Some important lists:
+
+* `generic-positions`: needs to be cleaned up on Wikidata to only contain positions not specific to one country
+* ...

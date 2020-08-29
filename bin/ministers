@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Get ministers of a state, each with all of its positions
+
+set -e
+
+if [ $# -eq 0 ]; then
+    echo "Usage $0 STATE"
+else
+    STATE=$(jq -c "select(.state==\"$1\")" states.ndjson)
+    if [ -z "$STATE" ]; then
+        echo "$1 not found in states.ndjson"
+        exit 1
+    fi
+
+    jq "select(.country==\"$1\")" portfolio.ndjson | \
+    jq -s "group_by(.minister)|.[]" | \
+    jq -Llib --argjson state "$STATE" 'include "towikidata"; person($state)'
+
+#    jq -Llib --slurpfile states states.ndjson 'include "towikidata"; person'
+fi

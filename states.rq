@@ -1,7 +1,7 @@
 #defaultView:Map
 SELECT
   ?state ?stateLabel ?coordinate ?start ?end ?code 
-  (GROUP_CONCAT(?demonym;SEPARATOR=", ") AS ?demonmys)
+  (GROUP_CONCAT(?demonym;SEPARATOR=", ") AS ?demonyms)
 {
 
   # States in Africa with 

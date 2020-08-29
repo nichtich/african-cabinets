@@ -1,7 +1,10 @@
-init: wikidata portfolio.ndjson
+init: wikidata portfolio.ndjson cabinetchanges.ndjson
 
 portfolio.ndjson: portfolio.xls
-	./xls2ndjson $< > $@
+	./bin/xls2ndjson $< > $@
+
+cabinetchanges.ndjson: cabinetchanges.xls
+	./bin/xls2ndjson $< > $@
 
 stats: portfolio.ndjson wikidata
 	@echo "portfolio: " `wc -l < $<`
@@ -9,18 +12,20 @@ stats: portfolio.ndjson wikidata
 	@echo " countries:" `jq .country  $< | sort | uniq | wc -l`
 	@echo " rulers:   " `jq .ruler $< | sort | uniq | wc -l`
 	@echo " positions:" `jq .position $< | sort | uniq | wc -l`
-	@echo "Wikidata"
-	@echo " states:   " `wc -l states.ndjson`
-	@echo " positions:" `wc -l positions.ndjson`
+	@echo "Wikidata:"
+	@wc -l states.ndjson
+	@wc -l positions.ndjson
+	@wc -l generic-positions.ndjson
 
 # Get data from Wikidata
-wikidata: states.ndjson positions.ndjson
+wikidata: states.ndjson positions.ndjson generic-positions.ndjson
 
 # Get data about states from Wikidata
 states.ndjson: states.rq
-	@wd sparql $< | jq -c '.[]' > $@
+	@wd sparql $< | \
+	jq -c '.[]|.+{id:.state.value,state:.state.label,demonyms:(.demonyms|split(", "))}' > $@
 
-# Get data about country-specific positions from Wikidata, indexed by name
+# Get data about country-specific positions from Wikidata
 positions.ndjson: positions.rq
 	@wd sparql $< | jq -c '.[]' > $@
 
