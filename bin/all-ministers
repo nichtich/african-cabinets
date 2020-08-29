@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+jq -r .state states.ndjson | xargs -L 1 -d '\n' ./bin/ministers

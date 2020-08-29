@@ -5,12 +5,16 @@ SELECT ?position ?positionLabel ?positionDescription (GROUP_CONCAT(DISTINCT(?alt
   FILTER NOT EXISTS { ?position wdt:P17 ?country }    # not country-specific
   FILTER NOT EXISTS { ?position wdt:P1308 ?person }   # not held by specific person
   FILTER NOT EXISTS { ?position wdt:P571 ?date }      # not created at specific date
-
-  FILTER NOT EXISTS {             # not belonging to specific region
+  FILTER NOT EXISTS {                                 # not belonging to specific region
       ?position wdt:P1001 ?region
       FILTER (!wikibase:isSomeValue(?region))
-    } 
-  
+  }
+  FILTER NOT EXISTS { ?position wdt:P94 ?coat }       # no coat of arms
+  FILTER NOT EXISTS { ?position wdt:P856 ?url }       # no homepage
+  FILTER NOT EXISTS {                                 # not subclass of "minister of $sovereign_state" or part of cabinet
+    ?position wdt:P279|wdt:P361 ?parent .
+    ?parent wdt:P1001|wdt:P17 [ wdt:P31 wd:Q3624078 ]
+  }  
   OPTIONAL { ?position skos:altLabel ?altLabel . FILTER (lang(?altLabel) = "en") }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 } GROUP BY ?position ?positionLabel ?positionDescription

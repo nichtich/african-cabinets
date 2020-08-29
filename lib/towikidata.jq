@@ -8,19 +8,23 @@ def minister($POSITIONS):
     $POSITIONS[ ("Minister of " + .) | ascii_downcase ]
 ;
 
+def date:
+  split("T")|.[0]
+;
+
 def position($STATE; $POSITIONS):
   (.position | minister($POSITIONS)) as $POS |
   if $POS then
   { 
     value: $POS,
     qualifiers: {
-     P580: .startdate,
-     P582: .enddate,    # TODO: support ongoing positions
-     P624: $STATE.id,   # of
+     P580: .startdate|date,
+     P582: .enddate|date,    # TODO: support ongoing positions
+     P642: $STATE.id,        # of
     }
   }
   else
-     ( "Position not found: " + .position | stderr )
+     ( "Position not found: " + .position | stderr ) | empty
   end
 ;
 
