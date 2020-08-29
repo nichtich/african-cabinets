@@ -18,12 +18,33 @@ cd african-cabinets
 npm install
 ~~~
 
-Manually doenload source files from <https://osf.io/3exrk/>:
+## Usage
+
+The repository contains two independent applications:
+
+* command line scripts for data processing
+* a web application to inspect Wikidata
+
+### Data processing
+
+Manually download the following source files from <https://osf.io/3exrk/>:
 
 * `cabinetchanges.xls`
 * `portfolio.xls`
 
-## Usage
+Run `make` to convert these Excel files to JSON and to download the current list of states and positions from Wikidata:
 
-Instructions will follow. See `Makefile` for internals.
+    make
+
+Some statistics can be calculated for data analysis
+
+    make stats
+
+...
+
+### Web application
+
+The web application is made available at <http://jakobvoss.de/african-cabinets/>. During development run a hot-reloading server:
+
+    npm run web
 

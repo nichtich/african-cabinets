@@ -1,3 +1,5 @@
+init: wikidata portfolio.ndjson
+
 portfolio.ndjson: portfolio.xls
 	./xls2ndjson $< > $@
 

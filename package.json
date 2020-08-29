@@ -1,8 +1,12 @@
 {
-  "scripts": {},
+  "scripts": {
+    "web": "live-server --ignore=.git,node_modules ./"
+  },
   "dependencies": {
+    "convert-excel-to-json": "^1.7.0",
+    "live-server": "^1.2.1",
     "ndjson": "^1.5.0",
-    "read-excel-file": "^4.0.6",
     "wikibase-cli": "^13.0.1"
-  }
+  },
+  "license": "MIT"
 }
