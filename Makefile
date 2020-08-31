@@ -15,10 +15,10 @@ stats: portfolio.ndjson wikidata
 	@echo "Wikidata:"
 	@wc -l states.ndjson
 	@wc -l positions.ndjson
-	@wc -l generic-positions.ndjson
+	@echo " generic-positions: " `jq keys generic-positions.json | wc -l`
 
 # Get data from Wikidata
-wikidata: states.ndjson positions.ndjson generic-positions.ndjson
+wikidata: states.ndjson positions.ndjson generic-positions.json
 
 # Get data about states from Wikidata
 states.ndjson: states.rq
