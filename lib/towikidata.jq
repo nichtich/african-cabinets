@@ -21,7 +21,8 @@ def position($STATE; $POSITIONS):
      P580: .startdate|date,
      P582: .enddate|date,    # TODO: support ongoing positions
      P642: $STATE.id,        # of
-    }
+    },
+    references: { P248: "Q96743901" } # stated in our database
   }
   else
      ( "Position not found: " + .position | stderr ) | empty
