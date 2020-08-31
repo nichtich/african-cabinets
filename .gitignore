@@ -1,5 +1,6 @@
 node_modules
 *.xls
 *.ndjson
+config.json # includes credentials!
 *.json
 !package.json

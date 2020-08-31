@@ -48,7 +48,8 @@ The current version only emits ministers with matching generic position item on 
 
 Next step to upload/update items in Wikidata:
 
-*...not implemented yet...*
+* Put credentials in `config.json` (not to be commited!)
+* *...not fully implemented yet...*
 
 ### Web application
 
