@@ -51,7 +51,7 @@ The current version only emits ministers with matching generic position item on 
 Next step to upload/update items in Wikidata:
 
 * Put credentials in `config.json` (not to be commited!)
-* *...not fully implemented yet...*
+* Pass input of ministers script to `bin/import`. Newly created items will be logged in `items.created.ndjson`
 
 ### Web application
 

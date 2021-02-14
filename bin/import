@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+
+# JSON items with English label given via STDIN
+jq -c 'select(.labels.en)' | while read -r LINE
+do
+  NAME=$(jq -r '.labels.en' <<< "$LINE")
+
+  # Find first item with matching label
+  QID=$(wd f -n 1 "$NAME" 2>&1 | awk '{print $1}')
+  if [[ "$QID" == "no" ]]
+  then
+    # Create new Wikidata item
+    CREATED=$(wd create-entity "$LINE" | jq -c .)    
+    QID=$(jq -r 'select(.success)|.entity.id|select(.)' <<< "$CREATED")
+    if [[ -z "$CREATED" || -z "$QID" ]]
+    then
+      echo "Failed creating $NAME"
+      exit 1
+    else
+      echo "Created $QID $NAME"
+      jq -c .entity <<< "$CREATED" >> items.created.ndjson
+    fi    
+  else
+    echo "Found $NAME"
+  fi
+done
