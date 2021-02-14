@@ -27,7 +27,7 @@ The repository contains two independent applications:
 
 ### Data processing
 
-Manually download the following source files from <https://osf.io/3exrk/>:
+Manually download the following source files from <https://osf.io/3exrk/> to directory `data`:
 
 * `cabinetchanges.xls`
 * `portfolio.xls`
@@ -35,6 +35,8 @@ Manually download the following source files from <https://osf.io/3exrk/>:
 Run `make` to convert these Excel files to JSON and to download the current list of states and positions from Wikidata:
 
     make
+
+To update states and positions from Wikidata call `make -B wikidata`.
 
 Some statistics can be calculated for data analysis
 
@@ -44,7 +46,7 @@ To convert all ministers from a country to Wikidata items, call `bin/ministers` 
 
     ./bin/ministers Angola
 
-The current version only emits ministers with matching generic position item on Wikidata.
+The current version only emits ministers with matching generic position item on Wikidata. Positions not found are emitted to STDERR.
 
 Next step to upload/update items in Wikidata:
 

@@ -1,12 +1,15 @@
-init: wikidata portfolio.ndjson cabinetchanges.ndjson
+PORTFOLIO=data/portfolio.ndjson
+CABINETCHANGES=data/cabinetchanges.ndjson
 
-portfolio.ndjson: portfolio.xls
+init: wikidata $(PORTFOLIO) $(CABINETCHANGES)
+
+$(PORTFOLIO): data/portfolio.xls
 	./bin/xls2ndjson $< > $@
 
-cabinetchanges.ndjson: cabinetchanges.xls
+$(CABINETCHANGES): data/cabinetchanges.xls
 	./bin/xls2ndjson $< > $@
 
-stats: portfolio.ndjson wikidata
+stats: $(PORTFOLIO) wikidata
 	@echo "portfolio: " `wc -l < $<`
 	@echo " names:    " `jq .minister $< | sort | uniq | wc -l`
 	@echo " countries:" `jq .country  $< | sort | uniq | wc -l`

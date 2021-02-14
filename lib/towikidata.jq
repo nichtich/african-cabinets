@@ -25,7 +25,7 @@ def position($STATE; $POSITIONS):
     references: { P248: "Q96743901" } # stated in our database
   }
   else
-     ( "Position not found: " + .position | stderr ) | empty
+     ( "Position '" + .position + "' not found!" | stderr ) | empty
   end
 ;
 
